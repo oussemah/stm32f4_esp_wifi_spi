@@ -36,7 +36,7 @@ The only thing you need to do is to edit the makefile and let it know your toolc
 ### Debug
 Connect your STM32F4Discovery with a USB cable. You can flash the binary into the board with this:
 
-`$ st-flash write binary/app.bin 0x8000000`
+`make flash`
 
 The code is wrote directly into internal flash of STM32 processor and it starts to run after reset. To debug it, first start the GDB server:
 
