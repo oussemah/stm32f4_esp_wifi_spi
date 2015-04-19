@@ -62,7 +62,7 @@ void SPI_SlaveInit(SPI_TypeDef* SPIx)
     SPI_InitStructure.SPI_CPHA = SPI_CPHA_1Edge;
     SPI_InitStructure.SPI_NSS = SPI_NSS_Hard;
     SPI_InitStructure.SPI_FirstBit = SPI_FirstBit_MSB;
-    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_2;
+    SPI_InitStructure.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_256;
     SPI_InitStructure.SPI_CRCPolynomial = 7;
     SPI_Init(SPI2, &SPI_InitStructure);
 
@@ -123,4 +123,20 @@ SPI_WAIT(SPIx);
 /* Save data to buffer */
 dataIn[i] = SPIx->DR;
 }
+}
+
+void SPI_ReadString(SPI_TypeDef* SPIx, uint8_t* dataIn, uint8_t dummy, uint16_t count) 
+{
+uint16_t i;
+/* Wait for previous transmissions to complete if DMA TX enabled for SPI */
+SPI_WAIT(SPIx);
+for (i = 0; i < count; i++) {
+/* Fill output buffer with data */
+SPIx->DR = dummy;
+/* Wait for SPI to end everything */
+SPI_WAIT(SPIx);
+/* Save data to buffer */
+dataIn[i] = SPIx->DR;
+}
+dataIn[count]='\0';
 }

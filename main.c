@@ -30,6 +30,7 @@ int main(void) {
   for (;;)
   {
 	delay_ms(1000);
-    printf("tick\r\n");
+    SPI_ReadString(SPI2, dataIn, 0xFF, 4);
+    printf("Got %s\r\n", (char*)dataIn);
   }
 }
