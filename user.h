@@ -4,6 +4,8 @@
 
 #define HEART_BEAT_LED GPIO_Pin_13
 
+#define MASTER_SELECT_PIN GPIO_Pin_5
+
 /** System Clock Configuration
 */
 void SystemClock_Config(void);
